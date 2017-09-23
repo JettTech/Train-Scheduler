@@ -15,6 +15,7 @@
 
 <!-- Script LINKS (CDNs): -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!--  Link to jQuery Script -->
+	
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- Link to the Bootstrap Script -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> <!-- Link to Moments (for time Calculation) Script -->
 
@@ -43,7 +44,7 @@
 					<div class="panel-title">Current Train Schedule</div>
 				</div>
 				<div class="panel-body">
-					<table class="table table-hover table-sm">
+					<table id="trainT" class="table table-hover table-sm">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -56,22 +57,12 @@
 						</thead>
 						<tbody> <!-- //blocprovides text to reference for dynamic creation/updating -->
 							<tr>
-								<td scope="row">1</td><!--  //What purpose does "scope" serve here? -->
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
-							</tr>
-						</tbody>
-						<tbody> <!-- //blocprovides text to reference for dynamic creation/updating -->
-							<tr>
-								<td scope="row">2</td>
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
-								<td>Example</td>
+								<td id="num"></td>
+								<td id="name">Example</td>
+								<td id="dest">Example</td>
+								<td id="freq">Example</td>
+								<td id="firstTrn">Example</td>
+								<td id="nextTrn">Example</td>
 							</tr>
 						</tbody>				
 					</table>			
@@ -93,19 +84,19 @@
 					<form>
 						<div class="form-group">
 							<label for="trainName-input">Train Name</label>
-							<input type="text" class="form-control">
+							<input id="trainName-input" type="text" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="destination-input">Destination</label>
-							<input type="text" class="form-control">
+							<input id="destination-input" type="text" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="firstTimeMil-input">First Train Time (HH:mm - Military Time)</label>
-							<input type="text" class="form-control">
+							<input id="firstTimeMil-input" type="text" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="frequency-input">Frequency (Min) </label>
-							<input type="text" class="form-control">
+							<input id="frequency-input" type="text" class="form-control">
 						</div>
 						<div class="text-center">
 							<button id="addTrainButton" class="btn btn-lg" type="submit">Submit</button>							
