@@ -24,7 +24,7 @@ $(document).ready(function($) {
 	$("#addTrainButton").on("click", function() {
 		event.preventDefault();
 	//display clear button
-		$("#mainHeader").append(clearButton);
+		// $("#jumboHeader").append(clearButton);  !!!!!!!!.....WAIT ON THIS UTNIL FIND HELP IT FUNCTION!!!!
 	
 	////Keeping count of the entries, internally.
 		entryAmount ++;
