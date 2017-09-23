@@ -1,8 +1,28 @@
 * {
 	font-family:'Space Mono', monospace;
-	font-size: 24px;
+	font-size: 18px;
 	letter-spacing: .5px;
 	box-sizing: border-box;
-	text-align: center;
 	margin: 0 auto;
+}
+
+.container-fluid {
+	background-image: url(../images/train-img.jpg);
+}
+
+.page-header.jumbotron{
+	color: white;
+	background-color: #629466;
+}
+
+.panel-primary>.panel-heading {
+	color: white;
+	background-color: #629466;
+	border-color: #629466;
+}
+
+#addTrainButton {
+	text-align: center;
+	color: white;
+	background-color: #629466;
 }
