@@ -1,18 +1,18 @@
 $(document).ready(function($) {
 
 // Initializing Firebase //IF having this on the main thread is deprecated... what should we do instead/how should we structure it?!
-	var config = {
+  	var config = {
 	    apiKey: "AIzaSyBdDMt-PKYOgmpz4xIieOU17nx9l2eNRTQ",
 	    authDomain: "train-scheduler-a47fb.firebaseapp.com",
 	    databaseURL: "https://train-scheduler-a47fb.firebaseio.com",
 	    projectId: "train-scheduler-a47fb",
-	    storageBucket: "",
+	    storageBucket: "train-scheduler-a47fb.appspot.com",
 	    messagingSenderId: "910917476946"
   	};
   	firebase.initializeApp(config);
-
   	var dataRef = firebase.database();
 
+	//creation of clear button
 	var clearButton = $("<button>").addClass("clear");
 	clearButton.attr("type", "submit");
 	clearButton.text("Refresh");
@@ -23,8 +23,8 @@ $(document).ready(function($) {
 //Event Handler --> Whenever button pushed, data submitted/stored in firebase database!
 	$("#addTrainButton").on("click", function() {
 		event.preventDefault();
-
-		$("mainHeader").append(clearButton);
+	//display clear button
+		$("#mainHeader").append(clearButton);
 	
 	////Keeping count of the entries, internally.
 		entryAmount ++;
@@ -32,17 +32,23 @@ $(document).ready(function($) {
 
 	////grabbing all data entries
 		var trainName = $("#trainName-input").val().trim();
-		var destination = $("#destination-input").val().trim();
+		var destination = $("#destination-input").val().trim();		
 		
-		var firstTrainT = moment($("#firstTimeMil-input").val().trim()).format("HH:mm"); //Moment.js REFERENCE: moment().format("ddd, hh");    
-		console.log(firstTrainT);
-		var trainFreq = moment($("#frequency-input").val().trim()).minute(); //Moment.js REFERENCE: moment().minute(Number)
-		console.log(trainFreq);
+		var firstTrainT = moment($("#firstTimeMil-input").val().trim(), "HH:mm").subtract(1,"years").format("X"); //Moment.js REFERENCE: moment().format("ddd, hh");    
+		console.log("firstTrainT = " + firstTrainT);
+
+		var trainFreq = $("#frequency-input").val().trim(); //Why don't we need to convert this one as well?!
+		console.log("trainFreq = " + trainFreq);
 
 
 	//Moment.js VARs!!!! - Calculating additional Time Mechs
-		var nextTrn = moment(firstTrainT - trainFreq).format("HH:mm"); //Moment.js REFERENCE: moment().format("ddd, hh")
-		var minAway = moment().set('minute', firstTrainT - nextTrn); //Moment.js REFERENCE: moment().set('minute', 20);
+		var tRemainder = moment().diff(moment.unix(firstTrainT),"minutes") % trainFreq; //MUST REMEMBER TO USE "UNIX"!!
+		var minAway = trainFreq - tRemainder;
+		var nextTrn = moment().add(minAway, "m").format("HH:mm A"); //Look further into the "A"...
+		
+		console.log("The remainder is: " + tRemainder);
+		console.log("Minutes until next train: " + minAway);
+		console.log("Next Train will come at: " + nextTrn);
 
 	////storing all data entires AS ONE OBJECT (for firebase database)
 		var newTrain = {
@@ -56,11 +62,13 @@ $(document).ready(function($) {
 		};
 
 	//UPLOAD to FireBase!!!!
-		database.ref().push(newTrain);
-		console.log("Train " + entryAmount + "added to database.") //How can we store data taht itemized which train # this is...?
+		dataRef = firebase.database();
+		dataRef.ref().push(newTrain);
+		
+		console.log("Train #" + entryAmount + "added to database.") //How can we store data taht itemized which train # this is...?
 
 	//// BUG-CHECK: verify data-entry
-		console.log(newtrain.num);
+		console.log(newTrain.num);
 		console.log(newTrain.name);
 		console.log(newTrain.dest);
 		console.log(newTrain.firstTrn);
@@ -76,7 +84,7 @@ $(document).ready(function($) {
 	});
 
 //Event Handler --> Whenever data submitted and uploaded into FireBase, find eah value, consolelot it and place in into the first display table (area).
-	dataRef.ref().on("child_added", function(childSnapshot, prevChildKey) { ///REVIEW what the "prevChildKey" accomplishes....
+	dataRef.ref().on("child_added", function(childSnapshot) { ///REVIEW what the "prevChildKey" accomplishes....
 		event.preventDefault();
 
 		//Because the data entry poitns are stored as Separate VALUES on an Obect ( the one we created earlier), we must esablish a new set of vars to be used for tefercing these indivudal values
@@ -96,8 +104,8 @@ $(document).ready(function($) {
 		console.log(nextTrn);
 		console.log(minAway);
 
-		// $("#trainT >tbody").append("<tr><td>" + entryAmount + "")
-		$("#num").append(entryAmount);
+// ******// $("#trainT >tbody").append("<tr><td>" + entryAmount + "")
+		$("#num").append(entryAmount); //Work on having the elements be created ina  alist!!!!!!!/NOTon top of each other!!!!
 		$("#name").append(trainName);
 		$("#dest").append(destination);
 		$("#freq").append(trainFreq);
@@ -108,14 +116,16 @@ $(document).ready(function($) {
 		console.log("Error to handle: " + errorObject.code);
 	});
 
-	$(document).on("click", clearButton, function(){
+// CAN DELEBER!!! *********WHY ISN'T THIS WORKING?!?!?!************
+	$(document).on("click", ".clear", function (){
+		console.log("You clicked refresh!");
 	// Clear out the TRAIN DISPLAY form AREA		
-		$("#num").val("");
-		$("#name").val("");
-		$("#dest").val("");
-		$("#freq").val("");
-		$("#firstTrn").val("");
-		$("#nextTrn").val("");
+		$("#num").empty();
+		$("#name").empty();
+		$("#dest").empty();
+		$("#freq").empty();
+		$("#firstTrn").empty();
+		$("#nextTrn").empty();
 
 	// Clear out the TRAIN INPUT form area
 		$("#trainName-input").val("");
