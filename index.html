@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<title>Train Scheduler</title>
+	<meta charset="utf-8">
+	<meta >
+
+<!-- Stylesheet LINKS: -->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css"><!--  Link to the local reset stylesheet page -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"><!--  Link to Bootstrap Stylesheet Lib -->
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!-- Link to the local stylesheet page -->
+
+<!-- Script LINKS (CDNs): -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!--  Link to jQuery Script -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- Link to the Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> <!-- Link to Moments (for time Calculation) Script -->
+
+<!-- Script LINKS (PSEUDO BACKEND/ DATA-STORAGE: -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script><!--  Link to Firebase Script >> !!!!FOR DATA STORAGE!!!! -->
+</head>
+
+<body>
+<!-- HEADER: -->
+<div class="container">
+	<div id="mainHeader" class="container">
+		<div class="header">
+			<div class="page-header jumbotron">
+				<h1 class="text-center">Anytime is Train Time</h1>
+				<h3 class="text-center">Choo CHOOOO!</h3>
+			</div>
+		</div>
+	</div>
+
+<!-- DYNAMICALLY MODIFIED TEXT BLOCK -->
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title">Current Train Schedule</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover table-sm">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Train Name</th>
+								<th>Destination</th>
+								<th>Frequency (min)</th>
+								<th>Next Arrival</th>
+								<th>Minutes Away</th>
+							</tr> 
+						</thead>
+						<tbody> <!-- //blocprovides text to reference for dynamic creation/updating -->
+							<tr>
+								<td scope="row">1</td><!--  //What purpose does "scope" serve here? -->
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+							</tr>
+						</tbody>
+						<tbody> <!-- //blocprovides text to reference for dynamic creation/updating -->
+							<tr>
+								<td scope="row">2</td>
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+								<td>Example</td>
+							</tr>
+						</tbody>				
+					</table>			
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+<!-- INPUT ADD-IN TEXT BLOCK -->
+	<div class="row">
+		<div class="col-md-12">
+			
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title">Add Train</div>
+				</div>
+				<div class="panel-body">			
+					<form>
+						<div class="form-group">
+							<label for="trainName-input">Train Name</label>
+							<input type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="destination-input">Destination</label>
+							<input type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="firstTimeMil-input">First Train Time (HH:mm - Military Time)</label>
+							<input type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="frequency-input">Frequency (Min) </label>
+							<input type="text" class="form-control">
+						</div>
+						<button id="addTrainButton" class="btn btn-info" type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+
+<script type="text/javascript" src="assets/javascript/app.js"> //Link to the local js app file
+</script>
+
+</body>
+</html>
