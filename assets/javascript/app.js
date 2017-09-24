@@ -12,10 +12,12 @@ $(document).ready(function($) {
   	firebase.initializeApp(config);
   	var dataRef = firebase.database();
 
-	//creation of clear button
-	var clearButton = $("<button>").addClass("clear");
-	clearButton.attr("type", "submit");
-	clearButton.text("Refresh");
+	//creation of clear button --> SOLVE THIS!!!!
+	// var clearButton = $("<button>");
+	// clearButton.addClass("clear");
+	// clearButton.attr("type", "submit");
+	// clearButton.text("Refresh");
+	// $("#jumboHeader").append(clearButton); //display clear button
 
 	//To enumberate train entry (by count).
   	var entryAmount = 0;
@@ -23,8 +25,6 @@ $(document).ready(function($) {
 //Event Handler --> Whenever button pushed, data submitted/stored in firebase database!
 	$("#addTrainButton").on("click", function() {
 		event.preventDefault();
-	//display clear button
-		// $("#jumboHeader").append(clearButton);  !!!!!!!!.....WAIT ON THIS UTNIL FIND HELP IT FUNCTION!!!!
 	
 	////Keeping count of the entries, internally.
 		entryAmount ++;
@@ -104,23 +104,30 @@ $(document).ready(function($) {
 		console.log(nextTrn);
 		console.log(minAway);
 
-// ******// $("#trainT >tbody").append("<tr><td>" + entryAmount + "")
-		$("#num").append(entryAmount); //Work on having the elements be created ina  alist!!!!!!!/NOTon top of each other!!!!
-		$("#name").append(trainName);
-		$("#dest").append(destination);
-		$("#freq").append(trainFreq);
-		$("#firstTrn").append(nextTrn);
-		$("#nextTrn").append(minAway);		
+		$("#trainT >tbody").append("<tr><td>" + entryAmount + "</td><td>" + trainName +
+		 "</td><td>" + destination + "</td><td>" + trainFreq + "</td><td>" + nextTrn + "</td><td>" + minAway + "</td></tr>");
+		// $("#num").append(entryAmount); Rethink this approach...
+		// $("#name").append(trainName);
+		// $("#dest").append(destination);
+		// $("#freq").append(trainFreq);
+		// $("#firstTrn").append(nextTrn);
+		// $("#nextTrn").append(minAway);		
 
 	}, function(errorObject){
 		console.log("Error to handle: " + errorObject.code);
 	});
 
-// CAN DELEBER!!! *********WHY ISN'T THIS WORKING?!?!?!************
+// Clear all.. work out the kinks...
 	$(document).on("click", ".clear", function (){
 		console.log("You clicked refresh!");
 	// Clear out the TRAIN DISPLAY form AREA		
-		$("#num").empty();
+		
+		//clear all the content in firebase database
+		dataRef.ref().delete("child"); 
+		console.log("You're refeshing!")
+		
+		// clear all the displayed info in the train section
+		$("#num").empty(); 
 		$("#name").empty();
 		$("#dest").empty();
 		$("#freq").empty();

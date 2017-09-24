@@ -26,3 +26,9 @@
 	color: white;
 	background-color: #629466;
 }
+
+#jumboHeader {
+	text-align: center;
+	margin: 0 auto;
+	background-color: #629466;
+}
